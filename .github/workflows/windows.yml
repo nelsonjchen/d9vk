@@ -32,4 +32,9 @@ jobs:
       with:
         python-version: '3.x'
     - run: python -m pip install meson
+    - uses: ilammy/msvc-dev-cmd@v1
+      env:
+        arch: x64
+    - run: meson --buildtype "release" --prefix output --bindir x64 --libdir x64 -Denable_tests=false buildx64
+    - run: ninja install -C buildx64
     
