@@ -20,6 +20,7 @@ jobs:
     - name: Install Vulkan SDK
       run: .\VulkanSDK.exe /S
       shell: cmd
+    - run: echo "::add-path::C:\VulkanSDK\${{ matrix.vulkan-version }}\bin"
     - name: Check Vulkan SDK
       run: |
         dir
