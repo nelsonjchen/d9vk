@@ -6,16 +6,16 @@ jobs:
   build:
     strategy:
       matrix:
-        VULKAN_VERSION: [1.1.126.0]
+        vulkan-version: [1.1.126.0]
 
     runs-on: windows-latest
     env:
-      VULKAN_SDK: C:\VulkanSDK\${{ VULKAN_VERSION }}      
+      VULKAN_SDK: C:\VulkanSDK\${{ matrix.vulkan-version }}      
 
     steps:
     - uses: actions/checkout@v1
     - name: Download Vulkan SDK
-      run: Invoke-WebRequest "https://sdk.lunarg.com/sdk/download/${{ VULKAN_VERSION }}/windows/VulkanSDK-${{ VULKAN_VERSION }}-Installer.exe?Human=true" -OutFile VulkanSDK.exe -v
+      run: Invoke-WebRequest "https://sdk.lunarg.com/sdk/download/${{ matrix.vulkan-version }}/windows/VulkanSDK-${{ matrix.vulkan-version }}-Installer.exe?Human=true" -OutFile VulkanSDK.exe -v
     - name: Install Vulkan SDK
       run: .\VulkanSDK.exe /S
       shell: cmd
@@ -24,6 +24,6 @@ jobs:
         dir
         dir C:\
         dir C:\VulkanSDK
-        dir C:\VulkanSDK\${{ VULKAN_VERSION }}
+        dir C:\VulkanSDK\${{ matrix.vulkan-version }}
         set
       shell: cmd
