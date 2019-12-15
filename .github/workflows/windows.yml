@@ -1,0 +1,30 @@
+name: Windows CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        i686:
+          VULKAN_VERSION: 1.1.126.0                    
+
+    runs-on: windows-latest
+    env:
+      VULKAN_SDK: C:\VulkanSDK\${{ VULKAN_VERSION }}      
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Download Vulkan SDK
+      run: Invoke-WebRequest "https://sdk.lunarg.com/sdk/download/${{ VULKAN_VERSION }}/windows/VulkanSDK-${{ VULKAN_VERSION }}-Installer.exe?Human=true" -OutFile VulkanSDK.exe -v
+    - name: Install Vulkan SDK
+      run: .\VulkanSDK.exe /S
+      shell: cmd
+    - name: Check Vulkan SDK
+      run: |
+        dir
+        dir C:\
+        dir C:\VulkanSDK
+        dir C:\VulkanSDK\${{ VULKAN_VERSION }}
+        set
+      shell: cmd
