@@ -14,6 +14,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    # Reference: https://github.com/GPSnoopy/RayTracingInVulkan/blob/057dfaf56df07afebec8d7112add32ccbc8160b4/.github/workflows/windows.yml
     - name: Download Vulkan SDK
       run: Invoke-WebRequest "https://sdk.lunarg.com/sdk/download/${{ matrix.vulkan-version }}/windows/VulkanSDK-${{ matrix.vulkan-version }}-Installer.exe?Human=true" -OutFile VulkanSDK.exe -v
     - name: Install Vulkan SDK
